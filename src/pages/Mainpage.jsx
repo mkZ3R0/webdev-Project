@@ -1,15 +1,16 @@
-import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 function Mainpage() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-    <Navbar/>
-    <Footer/>
-    </>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex-grow">
+        {/* Main content here */}
+      </div>
+      <Footer className="mt-auto" />
+    </div>
   )
 }
 
