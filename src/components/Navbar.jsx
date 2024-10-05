@@ -54,17 +54,17 @@ const Navbar = () => {
             {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="md:hidden">
-                    <a href="#" className="block px-4 py-2 text-white hover:text-teal-400 duration-300">Home</a>
-                    <a href="#" className="block px-4 py-2 text-white hover:text-teal-400 duration-300">Experiences</a>
-                    <a href="#" className="block px-4 py-2 text-white hover:text-teal-400 duration-300">Online Experiences</a>
+                    <a href="#" className="block py-2 text-white hover:text-teal-400 duration-300">Home</a>
+                    <a href="#" className="block py-2 text-white hover:text-teal-400 duration-300">Experiences</a>
+                    <a href="#" className="block py-2 text-white hover:text-teal-400 duration-300">Online Experiences</a>
                     <div className="relative">
-                        <button className="block w-full text-left px-4 py-2 text-white hover:text-teal-400 duration-300" onClick={toggleDropdown}>
+                        <button className="block w-full text-left py-2 text-white hover:text-teal-400 duration-300" onClick={toggleDropdown}>
                             My Profile
                         </button>
                         {isDropdownOpen && (
                             <div className="mt-0 w-full bg-gray-900 rounded-md shadow-lg py-2">
-                                <a href="/signup" className="block px-4 py-2 text-white hover:text-teal-400 duration-300 rounded">Sign Up</a>
-                                <a href="/login" className="block px-4 py-2 text-white hover:text-teal-400 duration-300 rounded">Login</a>
+                                <a href="/signup" className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Sign Up</a>
+                                <a href="/login" className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Login</a>
                             </div>
                         )}
                     </div>
