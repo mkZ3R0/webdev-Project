@@ -14,7 +14,7 @@ const CategoryList = () =>
             <h1 className="text-2xl font-bold text-center my-2 text-teal-400">Explore our Arsenal</h1>
 
             <div>
-                <ul className="flex flex-row mb-3 gap-4 bg-gray-700 overflow-y-auto scrollbar-hide max-w-full">
+                <ul className="flex flex-row mb-0 gap-4 bg-gray-700 overflow-y-auto scrollbar-hide max-w-full">
                     {CATEGORIES.map((category) => (
                         <CategoryButton key={category.name} category={category.name} onClick={handleCategoryClick} />
                     ))}
