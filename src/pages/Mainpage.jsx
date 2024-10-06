@@ -32,6 +32,7 @@ function Mainpage() {
   const fetchProperties = async () =>
   {
     setLoading(true);
+    setFilteredProperties([]);
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
