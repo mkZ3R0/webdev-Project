@@ -1,20 +1,19 @@
 import {useState} from 'react';
-// TODO ADD PROP CALLBACK FUNCTION FROM MAINPAGE COMPONENT TO HANDLESEARCHINPUT
-const Searchform = () => 
+
+const Searchform = ({currSearch, handleSearchClick}) => 
 {
-    const [searchTerm,setSearchTerm] = useState('');
+    const [searchTerm,setSearchTerm] = useState(currSearch);
 
     const handleSearchInput = (event) =>
     {
-        console.log('Search Input Call back handler activated');
         setSearchTerm(event.target.value);
     };
 
     const handleSearchSubmit = (event) =>
     {
-        console.log(searchTerm);
-    
-        event.preventDefault(); //prevent form submission from refreshing the browser
+        event.preventDefault();
+
+        handleSearchClick(searchTerm);
     };
 
 
@@ -37,7 +36,6 @@ const Searchform = () =>
                 </div>
             </form>
         </div>
-
     );
 
 };

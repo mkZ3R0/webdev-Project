@@ -13,50 +13,68 @@ function Mainpage() {
   const initialProperties = PROPERTIES.filter(property => 
     property.types.includes(activeCategory));
 
-  const [filteredProperties, setFilteredProperties] = useState(initialProperties);
+  const [filteredProperties, setFilteredProperties] = useState(initialProperties);//Trending properties always
   const [noResults, setNoResults] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [currSearch, setCurrSearch] = useState("");
 
   const handleCategoryClick = (name) =>
   {
       setActiveCategory(name);
+      setCurrSearch("");
+  };
+
+  const handleSearchClick = (newSearch) =>
+  {
+    setCurrSearch(newSearch);
   };
   
+  const fetchProperties = async () =>
+  {
+    setLoading(true);
 
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    let propertiesToDisplay;
+
+    //Apply category filter
+    if (activeCategory === "ALL") {
+      propertiesToDisplay = PROPERTIES;
+    } 
+    else 
+    {
+      propertiesToDisplay = PROPERTIES.filter(property => property.types.includes(activeCategory));
+    }
+
+    //Apply search filter
+    if (currSearch) 
+    {
+      propertiesToDisplay = propertiesToDisplay.filter(property =>
+        property.title.toLowerCase().includes(currSearch.toLowerCase())
+      );
+    }
+
+    setFilteredProperties(propertiesToDisplay);
+    setNoResults(propertiesToDisplay.length === 0);
+    setLoading(false);
+  };
+
+  //For Category queries
   useEffect(() => 
   {
-    const loadProperties = async () => {
+    fetchProperties();
+  }, [activeCategory,currSearch]);
 
-      setLoading(true);
-      setNoResults(false);
-      setFilteredProperties([]);
-
-      //Simulating 2 second delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      if (activeCategory === "ALL") {
-        setFilteredProperties(PROPERTIES); // Show all properties
-      } else {
-        const filtered = PROPERTIES.filter(property =>
-          property.types.includes(activeCategory)
-        );
-        setFilteredProperties(filtered); // Filter properties based on the active category
-      }
-      setLoading(false);
-    };
-
-    loadProperties();
-
-  }, [activeCategory]);
-
-  useEffect(() => {
-    setNoResults(filteredProperties.length === 0); // Check if there are no results
+  // If properties are empty
+  useEffect(() => 
+  {
+    setNoResults(filteredProperties.length === 0);
   }, [filteredProperties]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-700">
       <Navbar />
-      <Searchform />
+      <Searchform currSearch={currSearch} handleSearchClick={handleSearchClick} />
       <CategoryList activeCategory={activeCategory} handleCategoryClick={handleCategoryClick}/>
 
       {loading &&  <div className="flex flex-col items-center mt-8">
