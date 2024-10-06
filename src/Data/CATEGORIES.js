@@ -1,11 +1,11 @@
 export const CATEGORIES = [
+    {name:'TRENDING'},
     {name:'VILLA'},
     {name:'APARTMENT'},
     {name:'OFFICE'},
     {name:'HOTEL'},
     {name:'BEACHFRONT'},
     {name:'RESORT'},
-    {name:'TRENDING'},
     {name:'CABIN'},
     {name:'MANSION'},
     {name:'COTTAGE'},

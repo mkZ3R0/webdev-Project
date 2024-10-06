@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Searchform from '../components/Searchform'
@@ -6,11 +7,18 @@ import ListingCardContainer from '../components/ListingCardContainer'
 
 function Mainpage() {
 
+  const [activeCategory, setActiveCategory] = useState("TRENDING");
+
+  const handleCategoryClick = (name) =>
+  {
+      setActiveCategory(name);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-700">
       <Navbar />
       <Searchform />
-      <CategoryList />
+      <CategoryList activeCategory={activeCategory} handleCategoryClick={handleCategoryClick}/>
       <div className="flex-grow">
         <ListingCardContainer />
       </div>
