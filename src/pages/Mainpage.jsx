@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Searchform from '../components/Searchform'
 import CategoryList from '../components/CategoryList'
+import ListingCardContainer from '../components/ListingCardContainer'
 
 function Mainpage() {
 
@@ -11,7 +12,7 @@ function Mainpage() {
       <Searchform />
       <CategoryList />
       <div className="flex-grow">
-        {/* Main content here */}
+        <ListingCardContainer />
       </div>
       <Footer className="mt-auto" />
     </div>
