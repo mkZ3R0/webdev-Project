@@ -27,9 +27,9 @@ export const ABOUT = [
 ];
 
 export const ICONS = [
-    {name:"logo-facebook",link:"#"},
-    {name:"logo-twitter",link:"#"},
-    {name:"logo-instagram",link:"#"},
-    {name:"logo-linkedin",link:"#"},
-    {name:"logo-youtube",link:"#"},
+    {name:"logo-facebook",link:"https://www.facebook.com/"},
+    {name:"logo-twitter",link:"https://x.com/?lang=en"},
+    {name:"logo-instagram",link:"https://www.instagram.com/"},
+    {name:"logo-linkedin",link:"https://pk.linkedin.com/"},
+    {name:"logo-youtube",link:"https://www.youtube.com/"},
 ];
