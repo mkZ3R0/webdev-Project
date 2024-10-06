@@ -15,24 +15,38 @@ function Mainpage() {
 
   const [filteredProperties, setFilteredProperties] = useState(initialProperties);
   const [noResults, setNoResults] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleCategoryClick = (name) =>
   {
       setActiveCategory(name);
   };
   
-  useEffect(() => {
-    if (activeCategory === "ALL") {
-      setFilteredProperties(PROPERTIES); // Show all properties
-    } 
-    else 
-    {
-      const filtered = PROPERTIES.filter(property => 
-        property.types.includes(activeCategory)
-      );
-      setFilteredProperties(filtered); // Filter properties based on the active category
 
-    }
+  useEffect(() => 
+  {
+    const loadProperties = async () => {
+
+      setLoading(true);
+      setNoResults(false);
+      setFilteredProperties([]);
+
+      //Simulating 2 second delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      if (activeCategory === "ALL") {
+        setFilteredProperties(PROPERTIES); // Show all properties
+      } else {
+        const filtered = PROPERTIES.filter(property =>
+          property.types.includes(activeCategory)
+        );
+        setFilteredProperties(filtered); // Filter properties based on the active category
+      }
+      setLoading(false);
+    };
+
+    loadProperties();
+
   }, [activeCategory]);
 
   useEffect(() => {
@@ -45,7 +59,12 @@ function Mainpage() {
       <Searchform />
       <CategoryList activeCategory={activeCategory} handleCategoryClick={handleCategoryClick}/>
 
-      {noResults && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
+      {loading &&  <div className="flex flex-col items-center mt-8">
+        <div className="animate-spin h-12 w-12 border-4 border-t-4 border-t-teal-400 border-gray-300 rounded-full"></div>
+        <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
+    </div>}
+
+      {!loading && noResults && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
         <strong>No Available Properties</strong>
         </div>}
 
