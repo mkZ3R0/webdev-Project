@@ -1,4 +1,7 @@
 import house1 from '../assets/house1.jpg';
+import house2 from '../assets/house2.jpeg';
+import house3 from '../assets/house3.jpeg';
+import house4 from '../assets/house4.jpg';
 
 export const PROPERTIES = [
     {
@@ -27,7 +30,7 @@ export const PROPERTIES = [
     },
     {
       id: 3,
-      img: house1,
+      img: house2,
       title: 'Beachfront Villa',
       types: ['VILLA','TRENDING'],
       guests: 8,
@@ -39,7 +42,7 @@ export const PROPERTIES = [
     },
     {
       id: 4,
-      img: house1,
+      img: house3,
       title: 'Luxury Penthouse',
       types: ['LUXURY','PENTHOUSE','TRENDING'],
       guests: 4,
@@ -51,7 +54,7 @@ export const PROPERTIES = [
     },
     {
         id: 5,
-        img: house1,
+        img: house4,
         title: 'Rustic Farmhouse',
         types: ['FARMHOUSE'],
         guests: 10,
