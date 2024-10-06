@@ -1,8 +1,24 @@
-# React + Vite
+# AIR BNB REPLICA BY BSCS22021 MUHAMMAD MUKEES KHAN
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## PROJECT DESCRIPTION
+A air bnb homepage replica made in  React styled with Tailwind CSS
 
-Currently, two official plugins are available:
+## SET UP INSTRUCTIONS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Install Node.js**
+2. **Install pnpm**
+    install pnpm globally by running
+    `npm install -g pnpm`
+
+3. **install node modules**
+    run the command
+    `pnpm install`
+
+4. **If tailwind is not recognized in your project install it**
+    run the commands
+    `pnpm add -D tailwindcss postcss autoprefixer`
+    `npx tailwindcss init -p`
+
+5. **Start up the server**
+    run the command
+    `pnpm run dev`
