@@ -13,4 +13,5 @@ export const CATEGORIES = [
     {name:'NEW'},
     {name:'LUXURY'},
     {name:'FARMHOUSE'},
+    {name:'PENTHOUSE'},
 ];

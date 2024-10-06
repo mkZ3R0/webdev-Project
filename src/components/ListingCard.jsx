@@ -9,9 +9,15 @@ const ListingCard = ({ property }) => {
       <div className="px-6 py-4 flex-grow">
         {/* Property Title */}
         <div className="font-bold text-xl mb-2 text-teal-400">{property.title}</div>
-
-        {/* Property Type */}
-        <p className="text-violet-400 text-sm">{property.type}</p>
+      
+      {/* Property types List */}
+        <div className="flex flex-wrap mt-2">
+          {property.types.map((type, index) => (
+            <span key={index} className="bg-violet-700 rounded-full px-3 py-1 text-teal-400 text-sm mr-2 mb-2">
+              {type}
+            </span>
+          ))}
+        </div>
 
         {/* Guests, Bedrooms, Bathrooms */}
         <div className="flex space-x-2 text-violet-400 text-sm mt-2">
