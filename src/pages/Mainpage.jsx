@@ -9,11 +9,23 @@ import {PROPERTIES} from '../Data/PROPERTIES'
 function Mainpage() {
 
   const [activeCategory, setActiveCategory] = useState("TRENDING");
+  const [filteredProperties, setFilteredProperties] = useState([]);
 
-  const initialProperties = PROPERTIES.filter(property => 
-    property.types.includes(activeCategory));
+  useEffect(() => {
 
-  const [filteredProperties, setFilteredProperties] = useState(initialProperties);//Trending properties always
+    const fetchProperties = async () => {
+      //Simulate loading time
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      const initialProperties = PROPERTIES.filter(property => 
+        property.types.includes(activeCategory));
+
+      setFilteredProperties(initialProperties);
+    };
+
+    fetchProperties();
+  }, []); //Empty array means it only runs once when mounted
+
   const [noResults, setNoResults] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currSearch, setCurrSearch] = useState("");
