@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from '../assets/airbnb.png'
 
 
 const Navbar = () => {
@@ -17,7 +16,7 @@ const Navbar = () => {
     return (
         <nav className="bg-gray-900 p-4">
             <div className="flex items-center justify-between">
-            <img src={logo} alt="Logo" className="h-24 w-54 mr-2" />
+            <img src="/assets/airbnb.png" alt="Logo" className="h-24 w-54 mr-2" />
                 <div className="md:hidden">
                     <button className="text-teal-400" onClick={toggleMenu}>
                         <svg
