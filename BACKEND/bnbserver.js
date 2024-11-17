@@ -15,7 +15,21 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Endpoint to fetch property listings
 app.get('/api/listings', (req, res) => {
-    res.json(PROPERTIES);
+    res.status(200).json(PROPERTIES);
+});
+
+// Endpoint to fetch a single property listing
+app.get('/api/listings/:id', (req, res) => {
+    const property = PROPERTIES.find((p) => p.id === req.params.id);
+    if (property) {
+        res.status(200).json(property);
+    } else {
+        res.status(404).json({ message: 'Property not found' });
+    }
+});
+
+app.post('api/booking/:id', (req, res) => {
+    res.status(200).json({ message: 'Booking successful' });
 });
 
 app.listen(port, () => {

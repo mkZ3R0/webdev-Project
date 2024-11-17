@@ -24,16 +24,19 @@ return (
         <div>
           <h1 className="text-2xl font-bold mb-4">{property.title}</h1>
           <p className="text-teal-400 mb-2">
-            <strong>Type:</strong> {property.types.join(", ")}
+            <strong className="text-white">Location: </strong> {property.location}
           </p>
           <p className="text-teal-400 mb-2">
-            <strong>Guests:</strong> {property.guests}
+            <strong className="text-white">Type:</strong> {property.types.join(", ")}
           </p>
           <p className="text-teal-400 mb-2">
-            <strong>Bedrooms:</strong> {property.bedrooms}
+            <strong className="text-white">Guests:</strong> {property.guests}
           </p>
           <p className="text-teal-400 mb-2">
-            <strong>Bathrooms:</strong> {property.bathrooms}
+            <strong className="text-white">Bedrooms:</strong> {property.bedrooms}
+          </p>
+          <p className="text-teal-400 mb-2">
+            <strong className="text-white">Bathrooms:</strong> {property.bathrooms}
           </p>
           <p className="text-teal-400 text-lg font-semibold">
             ${property.price_per_night} / night

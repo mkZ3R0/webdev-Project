@@ -67,6 +67,9 @@ const BookingPage = ({ property }) =>
                 className="rounded-lg mb-4 w-full h-64 object-cover"
               />
               <h2 className="text-xl font-bold">{property.title}</h2>
+              <p className="text-teal-400">
+                Location: <span className="font-semibold">{property.location}</span>
+              </p>
               <p className="text-yellow-500 font-medium">
                 Rating: {property.rating} ⭐ ({property.reviews_count} reviews)
                 </p>
