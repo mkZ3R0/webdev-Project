@@ -1,30 +1,17 @@
-import BookingPage from './pages/Bookingpage'
-import Mainpage from './pages/Mainpage'
-import ListingDetailsPage from './pages/PropertyListingPage'
-
-const Property = {
-  id: 1,
-  img: '/assets/house1.jpg',
-  title: 'Cozy Mountain Cabin',
-  types: ['CABIN','TRENDING'],
-  location: 'Big Bear, California',
-  guests: 6,
-  bedrooms: 3,
-  bathrooms: 2,
-  price_per_night: 150,
-  rating: 4.9,
-  reviews_count: 90,
-  description: 'This is a great cabin for couples/large families. Enjoy a beautiful nightsky view from the balcony. The cabin is located in the heart of the mountains. The cabin is fully furnished and has a fully equipped kitchen. The cabin is located near a lake and a river. The cabin is pet friendly.',
-  amenities: ['Wifi', 'Kitchen', 'Heating', 'Dryer', 'Free parking'],
-}
+import BookingPage from './pages/BookingPage'
+import Mainpage from './pages/MainPage'
+import ListingDetailsPage from './pages/LIstingDetailsPage'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      {/* <Mainpage /> */}
-      {/* <ListingDetailsPage property={Property}/> */}
-      <BookingPage property={Property}/>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Mainpage />} />
+        <Route path="/property-listing/:id" element={<ListingDetailsPage />} />
+        <Route path="/book/:id" element={<BookingPage />} />
+      </Routes>
+    </Router>
   )
 }
 

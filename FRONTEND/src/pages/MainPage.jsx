@@ -5,11 +5,18 @@ import Searchform from '../components/Searchform'
 import CategoryList from '../components/CategoryList'
 import ListingCardContainer from '../components/ListingCardContainer'
 import {PROPERTIES} from '../Data/PROPERTIES'
+import { useNavigate } from 'react-router-dom';
 
-function Mainpage() {
+function MainPage() {
+  const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState("TRENDING");
   const [filteredProperties, setFilteredProperties] = useState([]);
+
+  const handleNavigate = (propertyID) => {
+    console.log(propertyID);
+    navigate(`/property-listing/${propertyID}`);
+  };
 
   useEffect(() => {
 
@@ -100,11 +107,11 @@ function Mainpage() {
         </div>}
 
       <div className="flex-grow">
-        <ListingCardContainer properties={filteredProperties}/>
+        <ListingCardContainer properties={filteredProperties} detailsCallback={handleNavigate}/>
       </div>
       <Footer className="mt-auto" />
     </div>
   )
 }
 
-export default Mainpage
+export default MainPage

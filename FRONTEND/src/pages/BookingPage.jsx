@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useParams } from 'react-router-dom';
+import {PROPERTIES} from '../Data/PROPERTIES'
 
-const BookingPage = ({ property }) => 
+const BookingPage = () => 
 {
+  const { id } = useParams();
+
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [userName, setUserName] = useState("");
@@ -11,6 +15,8 @@ const BookingPage = ({ property }) =>
   const [userContact, setUserContact] = useState("");
   const [error, setError] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const property = PROPERTIES.find((property) => property.id === parseInt(id, 10));;
 
   const calculateTotalPrice = () => {
     const checkIn = new Date(checkInDate);

@@ -1,10 +1,18 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import {PROPERTIES} from '../Data/PROPERTIES'
 
-const ListingDetailsPage = ({ property }) => {
-//   const navigate = useNavigate();
+const ListingDetailsPage = () => {
+const navigate = useNavigate();
+const { id } = useParams();
+
+const property = PROPERTIES.find((property) => property.id === parseInt(id, 10));
+
+const handleBookingClick = () => {
+  navigate(`/book/${property.id}`);
+};
 
 return (
   <div className="flex flex-col min-h-screen bg-gray-700">
@@ -78,7 +86,7 @@ return (
 
       <div className="mt-12 flex justify-center">
         <button
-          onClick={() => navigate("/booking")}
+          onClick={handleBookingClick}
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
         >
           Book Now

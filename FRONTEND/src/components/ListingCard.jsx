@@ -1,5 +1,15 @@
 
-const ListingCard = ({ property }) => {
+const ListingCard = ({ property , detailsCallback}) => {
+
+  //Details Callback
+  const handleNavigate = () => 
+  {
+    console.log("Callback in listing card was activated");
+    console.log(property.id);
+    detailsCallback(property.id);
+  }
+
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-900 flex flex-col h-full border-teal-400 border-2">
       {/* Property Image */}
@@ -38,7 +48,7 @@ const ListingCard = ({ property }) => {
 
       {/* "Book Me" Button */}
       <div className="mt-auto px-6 pb-4">
-        <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded w-full">
+        <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded w-full" onClick={handleNavigate}>
           Book Me
         </button>
       </div>
