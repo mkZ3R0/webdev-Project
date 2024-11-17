@@ -6,53 +6,85 @@ import Navbar from "../components/Navbar";
 const ListingDetailsPage = ({ property }) => {
 //   const navigate = useNavigate();
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Property Image */}
-          <div>
-            <img
-              src={property.img}
-              alt={property.title}
-              className="rounded-lg w-full object-cover"
-            />
-          </div>
-
-          {/* Property Details */}
-          <div>
-            <h1 className="text-2xl font-bold mb-4">{property.title}</h1>
-            <p className="text-gray-700 mb-2">
-              <strong>Type:</strong> {property.types.join(", ")}
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Guests:</strong> {property.guests}
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Bedrooms:</strong> {property.bedrooms}
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Bathrooms:</strong> {property.bathrooms}
-            </p>
-            <p className="text-gray-800 text-lg font-semibold">
-              ${property.price_per_night} / night
-            </p>
-            <p className="text-yellow-500 font-medium mb-2">
-              Rating: {property.rating} ⭐ ({property.reviews_count} reviews)
-            </p>
-            <button
-            //   onClick={() => navigate("/booking")}
-              className="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Book Now
-            </button>
-          </div>
+return (
+  <div className="flex flex-col min-h-screen bg-gray-700">
+    <Navbar />
+    <main className="flex-grow container mx-auto px-4 py-8 text-white">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Property Image */}
+        <div>
+          <img
+            src={property.img}
+            alt={property.title}
+            className="rounded-lg w-full object-cover"
+          />
         </div>
-      </main>
-      <Footer />
-    </div>
-  );
+
+        {/* Property Details */}
+        <div>
+          <h1 className="text-2xl font-bold mb-4">{property.title}</h1>
+          <p className="text-teal-400 mb-2">
+            <strong>Type:</strong> {property.types.join(", ")}
+          </p>
+          <p className="text-teal-400 mb-2">
+            <strong>Guests:</strong> {property.guests}
+          </p>
+          <p className="text-teal-400 mb-2">
+            <strong>Bedrooms:</strong> {property.bedrooms}
+          </p>
+          <p className="text-teal-400 mb-2">
+            <strong>Bathrooms:</strong> {property.bathrooms}
+          </p>
+          <p className="text-teal-400 text-lg font-semibold">
+            ${property.price_per_night} / night
+          </p>
+          <p className="text-yellow-500 font-medium mb-2">
+            Rating: {property.rating} ⭐ ({property.reviews_count} reviews)
+          </p>
+
+          <h2 className="text-xl font-bold mb-2">Amenities</h2>
+          <ul className="list-none list-inside text-teal-400 space-y-1">
+            {property.amenities.map((amenity, index) => (
+              <li key={index} className="flex items-center">
+                <svg
+                  className="flex-shrink-0 w-3.5 h-3.5 text-green-400 mr-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 12"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M1 5.917 5.724 10.5 15 1.5"
+                  />
+                </svg>
+                <span>{amenity}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Description</h2>
+        <p className="text-teal-400 text-justify">{property.description}</p>
+      </div>
+
+      <div className="mt-12 flex justify-center">
+        <button
+          onClick={() => navigate("/booking")}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        >
+          Book Now
+        </button>
+      </div>
+    </main>
+    <Footer />
+  </div>
+);
 };
 
 export default ListingDetailsPage;
