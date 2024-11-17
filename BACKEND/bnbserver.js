@@ -15,18 +15,58 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Endpoint to fetch property listings
 app.get('/api/listings', (req, res) => {
-    res.status(200).json(PROPERTIES);
+    try 
+    {
+        res.status(200).json(PROPERTIES);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 // Endpoint to fetch a single property listing
 app.get('/api/listings/:id', (req, res) => {
-    const property = PROPERTIES.find((p) => p.id === req.params.id);
+    try 
+    {
+        const property = PROPERTIES.find((p) => p.id === req.params.id);
+        if (property) {
+            res.status(200).json(property);
+        } else {
+            res.status(404).json({ message: 'Property not found' });
+        }
+    } catch (error) 
+    {
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
     if (property) {
         res.status(200).json(property);
-    } else {
+    } 
+    else 
+    {
         res.status(404).json({ message: 'Property not found' });
     }
 });
+
+//SEARCH BASED ON LOCATION
+app.get('/api/listings/search', (req, res) => {
+    try 
+    {
+        const { query } = req.query;
+        
+        if (!query) {
+            return res.status(400).json({ message: 'Location query parameter is required' });
+        }
+      
+        const filteredListings = PROPERTIES.filter(listing =>
+            listing.location.toLowerCase().includes(query.toLowerCase())
+        );
+      
+        return res.status(200).json(filteredListings);
+    } catch (error) 
+    {
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+  
 
 app.post('api/booking/:id', (req, res) => {
     res.status(200).json({ message: 'Booking successful' });
