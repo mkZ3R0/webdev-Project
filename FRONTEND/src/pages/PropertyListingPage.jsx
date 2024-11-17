@@ -1,6 +1,6 @@
 import React from "react";
 // import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer"; // Adjust import as per your file structure
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const ListingDetailsPage = ({ property }) => {

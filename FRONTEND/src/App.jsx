@@ -1,3 +1,4 @@
+import BookingPage from './pages/Bookingpage'
 import Mainpage from './pages/Mainpage'
 import ListingDetailsPage from './pages/PropertyListingPage'
 
@@ -20,7 +21,8 @@ function App() {
   return (
     <>
       {/* <Mainpage /> */}
-      <ListingDetailsPage property={Property}/>
+      {/* <ListingDetailsPage property={Property}/> */}
+      <BookingPage property={Property}/>
     </>
   )
 }
