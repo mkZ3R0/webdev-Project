@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const handleNavigate = (path) => {
+      navigate(path);
+    };
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -34,9 +41,9 @@ const Navbar = () => {
                 </div>
 
                 <ul className="hidden md:flex space-x-4 items-center">
-                    <li><a href="#" className='text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300'>Home</a></li>
-                    <li><a href="#" className='text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300'>Experiences</a></li>
-                    <li><a href="#" className='text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300'>Online Experiences</a></li>
+                    <li><a href="#" onClick={() => handleNavigate('/')}  className='text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300'>Home</a></li>
+                    <li><a href="#" onClick={() => handleNavigate('/')}  className='text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300'>Experiences</a></li>
+                    <li><a href="#" onClick={() => handleNavigate('/')}  className='text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300'>Online Experiences</a></li>
                     <li className="relative">
                         <button className="text-white text-2xl px-3 py-2 rounded hover:text-teal-400 duration-300" onClick={toggleDropdown}>
                             My Profile
@@ -54,9 +61,9 @@ const Navbar = () => {
             {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="md:hidden">
-                    <a href="#" className="block py-2 text-white hover:text-teal-400 duration-300">Home</a>
-                    <a href="#" className="block py-2 text-white hover:text-teal-400 duration-300">Experiences</a>
-                    <a href="#" className="block py-2 text-white hover:text-teal-400 duration-300">Online Experiences</a>
+                    <a href="#" onClick={() => handleNavigate('/')}  className="block py-2 text-white hover:text-teal-400 duration-300">Home</a>
+                    <a href="#" onClick={() => handleNavigate('/')}  className="block py-2 text-white hover:text-teal-400 duration-300">Experiences</a>
+                    <a href="#" onClick={() => handleNavigate('/')}  className="block py-2 text-white hover:text-teal-400 duration-300">Online Experiences</a>
                     <div className="relative">
                         <button className="block w-full text-left py-2 text-white hover:text-teal-400 duration-300" onClick={toggleDropdown}>
                             My Profile

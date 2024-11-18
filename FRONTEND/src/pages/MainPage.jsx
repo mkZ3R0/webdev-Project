@@ -31,16 +31,18 @@ function MainPage() {
       console.log("fetching all using api");//TODO: REMOVE
 
       setAllProperties(response.data);
-
-      const initialProperties = response.data.filter(property => 
-        property.types.includes(activeCategory));
-
-      setFilteredProperties(initialProperties);
-
     };
 
     fetchInitProperties();
   },[]); //Empty array means it only runs once when mounted
+
+  //Initial render list
+  useEffect(() => {
+
+    const trendingProperties = allProperties.filter(property => 
+      property.types.includes(activeCategory));
+    setFilteredProperties(trendingProperties)
+  },[allProperties]);
 
   const handleCategoryClick = (name) =>
   {
