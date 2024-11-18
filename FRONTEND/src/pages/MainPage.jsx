@@ -1,17 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Searchform from '../components/Searchform'
 import CategoryList from '../components/CategoryList'
 import ListingCardContainer from '../components/ListingCardContainer'
-import {PROPERTIES} from '../Data/PROPERTIES'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function MainPage() {
   const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState("TRENDING");
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [allProperties, setAllProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [noResults, setNoResults] = useState(false);
+  const [currSearch, setCurrSearch] = useState("");
 
   const handleNavigate = (propertyID) => {
     console.log(propertyID);
@@ -20,22 +24,23 @@ function MainPage() {
 
   useEffect(() => {
 
-    const fetchProperties = async () => {
-      //Simulate loading time
-      await new Promise(resolve => setTimeout(resolve, 2000));
+    const fetchInitProperties = async () => {
 
-      const initialProperties = PROPERTIES.filter(property => 
+      const response = await axios.get("http://localhost:8000/api/listings");
+
+      console.log("fetching all using api");//TODO: REMOVE
+
+      setAllProperties(response.data);
+
+      const initialProperties = response.data.filter(property => 
         property.types.includes(activeCategory));
 
       setFilteredProperties(initialProperties);
+
     };
 
-    fetchProperties();
-  }, []); //Empty array means it only runs once when mounted
-
-  const [noResults, setNoResults] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [currSearch, setCurrSearch] = useState("");
+    fetchInitProperties();
+  },[]); //Empty array means it only runs once when mounted
 
   const handleCategoryClick = (name) =>
   {
@@ -48,22 +53,20 @@ function MainPage() {
     setCurrSearch(newSearch);
   };
   
-  const fetchProperties = async () =>
+  const fetchProperties = () =>
   {
     setLoading(true);
     setFilteredProperties([]);
-
-    await new Promise(resolve => setTimeout(resolve, 1000));
 
     let propertiesToDisplay;
 
     //Apply category filter
     if (activeCategory === "ALL") {
-      propertiesToDisplay = PROPERTIES;
+      propertiesToDisplay = allProperties;
     } 
     else 
     {
-      propertiesToDisplay = PROPERTIES.filter(property => property.types.includes(activeCategory));
+      propertiesToDisplay = allProperties.filter(property => property.types.includes(activeCategory));
     }
 
     //Apply search filter
@@ -75,20 +78,19 @@ function MainPage() {
     }
 
     setFilteredProperties(propertiesToDisplay);
-    setNoResults(propertiesToDisplay.length === 0);
     setLoading(false);
   };
 
   //For Category queries
   useEffect(() => 
   {
-    fetchProperties();
+      fetchProperties();
   }, [activeCategory,currSearch]);
 
   // If properties are empty
   useEffect(() => 
   {
-    setNoResults(filteredProperties.length === 0);
+      setNoResults(filteredProperties.length === 0);
   }, [filteredProperties]);
 
   return (
