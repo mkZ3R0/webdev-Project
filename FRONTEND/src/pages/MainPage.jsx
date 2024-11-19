@@ -17,6 +17,7 @@ function MainPage() {
   const [noResults, setNoResults] = useState(false);
   const [initload, setInitLoad] = useState(true);
   const [currSearch, setCurrSearch] = useState("");
+  const [error, setError] = useState(null);
 
   const handleNavigate = (propertyID) => {
     console.log(propertyID);
@@ -27,14 +28,19 @@ function MainPage() {
 
     const fetchInitProperties = async () => {
 
-      const response = await axios.get("http://localhost:8000/api/listings");
-
-      console.log("fetching all using api");//TODO: REMOVE
-
-      setAllProperties(response.data);
+      try{
+        const response = await axios.get("http://localhost:8000/api/listings");
+        console.log("fetching all using api");//TODO: REMOVE
+        setAllProperties(response.data);
+        setError(null);
+      }
+      catch (error) {
+        setError(error);
+      }
     };
 
     fetchInitProperties();
+    setLoading(false);
     setInitLoad(false);
   },[]); //Empty array means it only runs once when mounted
 
@@ -117,7 +123,11 @@ function MainPage() {
         <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
     </div>}
 
-      {!loading && noResults && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
+      {error && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
+        <strong>An Error occured trying to fetch properties</strong>
+        </div>}
+
+      {!error && !loading && noResults && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
         <strong>No Available Properties</strong>
         </div>}
 
