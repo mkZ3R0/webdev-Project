@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useParams } from 'react-router-dom';
-import {PROPERTIES} from '../Data/PROPERTIES'
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const BookingPage = () => 
 {
+  const navigate = useNavigate();
   const { id } = useParams();
 
+  //STATES FOR BOOKING FORM
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [userName, setUserName] = useState("");
@@ -16,9 +18,32 @@ const BookingPage = () =>
   const [error, setError] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const property = PROPERTIES.find((property) => property.id === parseInt(id, 10));;
+  //STATES FOR PAGE ITSELF
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [errorPage, setErrorPage] = useState(null);
+
+  useEffect(() => {
+    const fetchPropertyDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/listings/${id}`);
+        setProperty(response.data);
+        setLoading(false);
+        setErrorPage(null);
+      } catch (error) {
+        setErrorPage(error.message);
+        setLoading(false);
+      }
+    };
+  
+    fetchPropertyDetails();
+  }, [id]);
 
   const calculateTotalPrice = () => {
+    if (property === null)
+    {
+      return;
+    }
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
 
@@ -56,6 +81,45 @@ const BookingPage = () =>
     }
     calculateTotalPrice();
   };
+
+  const confirmBooking = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8000/api/bookings/${property.id}`)
+      alert(response.data.message);
+      navigate(`/`);
+    }
+    catch (error) {
+      alert("An error occurred while trying to book the property: " + error.message);
+    }
+  };
+
+  //Rendering
+
+  if (loading) {
+    return (
+  <div className="flex flex-col justify-center items-center min-h-screen bg-gray-700">
+    <div className="animate-spin h-12 w-12 border-4 border-t-4 border-t-teal-400 border-gray-300 rounded-full"></div>
+    <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
+  </div>
+    )
+  }
+
+  if (errorPage) {
+    return (
+    <div className="flex flex-col min-h-screen bg-gray-700">
+      <Navbar />
+      <main className="flex-grow container mx-auto px-4 py-8 flex justify-center items-center text-white">
+        <div className="text-teal-400 text-2xl sm:text-5xl text-center">
+          An Error occurred trying to fetch properties
+          <br />
+          <br/>
+          <p className="text-red-500 text-2xl sm:text-5xl text-center">{errorPage}</p>
+        </div>
+      </main>
+      <Footer />
+    </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -184,7 +248,7 @@ const BookingPage = () =>
                     <button
                     type="button"
                     // TODO: UPDATE THIS TO IMPLEMENT MOCK POINT AND REDIRECT USER TO HOME PAGE
-                    onClick={() => alert('Booking Confirmed!')} 
+                    onClick={confirmBooking} 
                     className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-semibold mt-4"
                     >
                     Confirm Booking

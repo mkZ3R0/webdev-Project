@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -17,7 +16,7 @@ const [error, setError] = useState(null);
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/listings/${id}`);
+      const response = await axios.get(`http://localhost:8000/api/listings/3`);
       setProperty(response.data);
       setLoading(false);
       setError(null);
@@ -41,7 +40,7 @@ if (loading) {
   <div className="animate-spin h-12 w-12 border-4 border-t-4 border-t-teal-400 border-gray-300 rounded-full"></div>
   <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
 </div>
-  )
+  );
 }
 
 if (error) {
@@ -51,6 +50,9 @@ if (error) {
       <main className="flex-grow container mx-auto px-4 py-8 flex justify-center items-center text-white">
         <div className="text-teal-400 text-2xl sm:text-5xl text-center">
           An Error occurred trying to fetch properties
+          <br />
+          <br/>
+          <p className="text-red-500 text-2xl sm:text-5xl text-center">{error}</p>
         </div>
       </main>
       <Footer />
