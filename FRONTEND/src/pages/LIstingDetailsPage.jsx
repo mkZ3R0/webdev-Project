@@ -12,6 +12,7 @@ const { id } = useParams();
 
 const [property, setProperty] = useState(null);
 const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
 
 useEffect(() => {
   const fetchData = async () => {
@@ -19,8 +20,9 @@ useEffect(() => {
       const response = await axios.get(`http://localhost:8000/api/listings/${id}`);
       setProperty(response.data);
       setLoading(false);
+      setError(null);
     } catch (error) {
-      console.error("Error fetching the property data", error);
+      setError(error.message);
       setLoading(false);
     }
   };
@@ -42,11 +44,25 @@ if (loading) {
   )
 }
 
+if (error) {
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-700">
+      <Navbar />
+      <main className="flex-grow container mx-auto px-4 py-8 flex justify-center items-center text-white">
+        <div className="text-teal-400 text-2xl sm:text-5xl text-center">
+          An Error occurred trying to fetch properties
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
 return (
   <div className="flex flex-col min-h-screen bg-gray-700">
     <Navbar />
-    <main className="flex-grow container mx-auto px-4 py-8 text-white">
 
+    <main className="flex-grow container mx-auto px-4 py-8 text-white">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Property Image */}
         <div>
