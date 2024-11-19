@@ -15,6 +15,7 @@ function MainPage() {
   const [allProperties, setAllProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [noResults, setNoResults] = useState(false);
+  const [initload, setInitLoad] = useState(true);
   const [currSearch, setCurrSearch] = useState("");
 
   const handleNavigate = (propertyID) => {
@@ -34,6 +35,7 @@ function MainPage() {
     };
 
     fetchInitProperties();
+    setInitLoad(false);
   },[]); //Empty array means it only runs once when mounted
 
   //Initial render list
@@ -94,6 +96,15 @@ function MainPage() {
   {
       setNoResults(filteredProperties.length === 0);
   }, [filteredProperties]);
+
+  if (initload) {
+    return (
+  <div className="flex flex-col justify-center items-center min-h-screen bg-gray-700">
+    <div className="animate-spin h-12 w-12 border-4 border-t-4 border-t-teal-400 border-gray-300 rounded-full"></div>
+    <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
+  </div>
+    )
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-700">

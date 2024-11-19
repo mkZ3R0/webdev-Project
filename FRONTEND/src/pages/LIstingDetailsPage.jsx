@@ -2,22 +2,51 @@ import React from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import {PROPERTIES} from '../Data/PROPERTIES'
+import {useState, useEffect} from 'react';
+import axios from "axios";
+
 
 const ListingDetailsPage = () => {
 const navigate = useNavigate();
 const { id } = useParams();
 
-const property = PROPERTIES.find((property) => property.id === parseInt(id, 10));
+const [property, setProperty] = useState(null);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/listings/${id}`);
+      setProperty(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching the property data", error);
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [id]);
 
 const handleBookingClick = () => {
   navigate(`/book/${property.id}`);
 };
 
+
+if (loading) {
+  return (
+<div className="flex flex-col justify-center items-center min-h-screen bg-gray-700">
+  <div className="animate-spin h-12 w-12 border-4 border-t-4 border-t-teal-400 border-gray-300 rounded-full"></div>
+  <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
+</div>
+  )
+}
+
 return (
   <div className="flex flex-col min-h-screen bg-gray-700">
     <Navbar />
     <main className="flex-grow container mx-auto px-4 py-8 text-white">
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Property Image */}
         <div>
@@ -35,7 +64,7 @@ return (
             <strong className="text-white">Location: </strong> {property.location}
           </p>
           <p className="text-teal-400 mb-2">
-            <strong className="text-white">Type:</strong> {property.types.join(", ")}
+            <strong className="text-white">Type:</strong> {property.types?.join(", ")}
           </p>
           <p className="text-teal-400 mb-2">
             <strong className="text-white">Guests:</strong> {property.guests}
