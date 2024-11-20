@@ -22,6 +22,7 @@ const BookingPage = () =>
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errorPage, setErrorPage] = useState(null);
+  const [sentPOST, setSentPost] = useState(false);
 
   useEffect(() => {
     const fetchPropertyDetails = async () => {
@@ -84,12 +85,15 @@ const BookingPage = () =>
 
   const confirmBooking = async () => {
     try {
+      setSentPost(true);
       const response = await axios.post(`http://localhost:8000/api/bookings/${property.id}`)
       alert(response.data.message);
       navigate(`/`);
+      setSentPost(false);
     }
     catch (error) {
       alert("An error occurred while trying to book the property: " + error.message);
+      setSentPost(false);
     }
   };
 
@@ -249,6 +253,7 @@ const BookingPage = () =>
                     type="button"
                     // TODO: UPDATE THIS TO IMPLEMENT MOCK POINT AND REDIRECT USER TO HOME PAGE
                     onClick={confirmBooking} 
+                    disabled={sentPOST}
                     className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-semibold mt-4"
                     >
                     Confirm Booking
