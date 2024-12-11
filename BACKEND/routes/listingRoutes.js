@@ -1,20 +1,21 @@
 import express from "express";
-import properties from '../Data/PROPERTIES.json' assert { type: 'json' };
+import Property from '../models/Property.js';
 
 const router = express.Router();
 
 // Endpoint to fetch property listings
-router.get('', (req, res) => {
+router.get('', async (req, res) => {
     try 
     {
-        return res.status(200).json(properties.listings);
+        const allProperties = await Property.find();
+        return res.status(200).json(allProperties);
     } catch (error) {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
 //SEARCH BASED ON LOCATION Must come before the /:id route as it will be treated as a parameter otherwise of id
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {//http://localhost:8000/api/listings/search?query=california
     try 
     {
         const { query } = req.query;
@@ -22,10 +23,8 @@ router.get('/search', (req, res) => {
         if (!query) {
             return res.status(400).json({ message: 'Location query parameter is required' });
         }
-      
-        const filteredListings = properties.listings.filter(listing =>
-            listing.location.toLowerCase().includes(query.toLowerCase())
-        );
+        //i option making it case insensitive
+        const filteredListings = await Property.find({ location: { $regex: query, $options: 'i' } });
       
         return res.status(200).json(filteredListings);
 
@@ -36,14 +35,16 @@ router.get('/search', (req, res) => {
 });
 
 //Endpoint to fetch a single property listing
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     try 
     {
-        const id = parseInt(req.params.id, 10);
+        const {id} = req.params; 
         if (!id) {
             return res.status(400).json({ message: 'Invalid property id' });
         }
-        const property = properties.listings.find((p) => p.id === id);
+        
+        const property = await Property.findById(id);
+
         if (property) {
             return res.status(200).json(property);
         } else {
@@ -54,6 +55,21 @@ router.get('/:id', (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-  
+
+
+
+
+//endpoint to post all properties from static file to the database
+//was used to initially seed the database
+// router.post('/seed', async (req, res) => {
+//     try 
+//     {
+//         await Property.insertMany(properties.listings);
+//         return res.status(200).json({ message: 'Properties seeded successfully' });
+//     } catch (error) 
+//     {
+//         return res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 
 export default router;

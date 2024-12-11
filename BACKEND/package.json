@@ -5,13 +5,14 @@
   "main": "bnbserver.js",
   "type": "module",
   "scripts": {
-    "start": "node bnbserver.js"
+    "start": "node --env-file=.env bnbserver.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "mongoose": "^8.8.4"
   }
 }
