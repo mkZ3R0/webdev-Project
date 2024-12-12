@@ -4,8 +4,19 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cors from 'cors';
 import mongoose from 'mongoose';
+import path from 'path';
 
 const app = express();
+
+app.use('/images', express.static(path.join(process.cwd(), 'public/images'), {
+    maxAge: '1y', 
+    setHeaders: (res, path) => {
+      if (path.endsWith('.jpg') || path.endsWith('.png') || path.endsWith('.gif')) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000'); 
+      }
+    }
+  }));
+
 const port = 8000;
 
 const URI = process.env.MONGODB_URI;

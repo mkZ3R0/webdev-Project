@@ -11,7 +11,7 @@ const ListingCard = ({ property , detailsCallback}) => {
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-900 flex flex-col h-full border-teal-400 border-2">
       {/* Property Image */}
-      <img className="w-full h-48 object-cover" src={property.img} alt={property.title} />
+      <img className="w-full h-48 object-cover" src={"http://localhost:8000/images/"+property.img} alt={property.title} />
 
       {/* Property Details */}
       <div className="px-6 py-4 flex-grow">

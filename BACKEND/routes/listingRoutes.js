@@ -1,5 +1,6 @@
 import express from "express";
 import Property from '../models/Property.js';
+// import properties from '../PROPERTIES.json' assert { type: 'json' };;
 
 const router = express.Router();
 
@@ -69,6 +70,7 @@ router.get('/:id', async (req, res) => {
 //         return res.status(200).json({ message: 'Properties seeded successfully' });
 //     } catch (error) 
 //     {
+//         console.log(error);
 //         return res.status(500).json({ message: 'Internal Server Error' });
 //     }
 // });

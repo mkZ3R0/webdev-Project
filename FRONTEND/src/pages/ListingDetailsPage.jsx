@@ -69,7 +69,7 @@ return (
         {/* Property Image */}
         <div>
           <img
-            src={property.img}
+            src={"http://localhost:8000/images/"+property.img}
             alt={property.title}
             className="rounded-lg w-full object-cover"
           />

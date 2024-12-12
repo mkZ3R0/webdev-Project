@@ -153,7 +153,7 @@ const BookingPage = () =>
 
             <div>
               <img
-                src={property.img}
+                src={"http://localhost:8000/images/"+property.img}
                 alt={property.title}
                 className="rounded-lg mb-4 w-full h-64 object-cover"
               />
@@ -268,7 +268,6 @@ const BookingPage = () =>
               {totalPrice > 0 && (
                     <button
                     type="button"
-                    // TODO: UPDATE THIS TO IMPLEMENT MOCK POINT AND REDIRECT USER TO HOME PAGE
                     onClick={confirmBooking} 
                     disabled={sentPOST}
                     className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-semibold mt-4"
