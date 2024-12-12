@@ -29,7 +29,6 @@ function App() {
           }
         });
         setUser(response.data.user);
-        console.log(response.data.user);
       }
     } catch (error) {
       console.log(error);

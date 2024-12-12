@@ -23,9 +23,20 @@ function UserProfilePage() {
         const fetchInitBookings = async () => {
 
             try {
-                const response = await axios.get(`http://localhost:8000/api/bookings/${user._id}`);
-                setBookings(response.data);
-                setError(null);
+                const token = localStorage.getItem("token");
+                if (token) {
+                    const response = await axios.get(`http://localhost:8000/api/bookings/${user._id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    });
+                    setBookings(response.data);
+                    setError(null);
+                }
+                else {
+                    toast.error("Token not found, please sign in again.");
+                }
+
             }
             catch (error) {
                 console.log(error);
@@ -58,20 +69,20 @@ function UserProfilePage() {
                 <div className="text-teal-400 text-2xl sm:text-5xl mt-4">Loading</div>
             </div>}
 
-                <div className="flex flex-col items-center mt-8">
-                    <h1 className="text-center text-violet-400 text-2xl sm:text-5xl mt-8">
-                        User Profile
-                    </h1>
-                    <div className="text-center text-teal-400 text-xl sm:text-3xl mt-4">
-                        <strong>User ID:</strong> {user._id}
-                    </div>
-                    <div className="text-center text-teal-400 text-xl sm:text-3xl mt-4">
-                        <strong>Username:</strong> {user.username}
-                    </div>
-                    <div className="text-center text-teal-400 text-xl sm:text-3xl mt-4">
-                        <strong>Account Created On:</strong> {new Date(user.createdAt).toLocaleDateString()}
-                    </div>
+            <div className="flex flex-col items-center mt-8">
+                <h1 className="text-center text-violet-400 text-2xl sm:text-5xl mt-8">
+                    User Profile
+                </h1>
+                <div className="text-center text-teal-400 text-xl sm:text-3xl mt-4">
+                    <strong>User ID:</strong> {user._id}
                 </div>
+                <div className="text-center text-teal-400 text-xl sm:text-3xl mt-4">
+                    <strong>Username:</strong> {user.username}
+                </div>
+                <div className="text-center text-teal-400 text-xl sm:text-3xl mt-4">
+                    <strong>Account Created On:</strong> {new Date(user.createdAt).toLocaleDateString()}
+                </div>
+            </div>
             <div className="flex-grow">
                 <h1 className="text-center text-violet-400 text-2xl sm:text-5xl mt-8">
                     Past Bookings

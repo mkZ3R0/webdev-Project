@@ -1,4 +1,5 @@
 import express from "express";
+import verifyToken from "../middlewares/authMiddleware.js";
 import Booking from "../models/Booking.js";
 
 const router = express.Router();
@@ -31,7 +32,7 @@ router.post('/:id', async (req, res) => {
 
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
     try 
     {
         const {id} = req.params; 
