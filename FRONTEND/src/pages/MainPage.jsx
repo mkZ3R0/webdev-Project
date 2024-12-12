@@ -14,13 +14,11 @@ function MainPage() {
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [allProperties, setAllProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [noResults, setNoResults] = useState(false);
   const [initload, setInitLoad] = useState(true);
   const [currSearch, setCurrSearch] = useState("");
   const [error, setError] = useState(null);
 
   const handleNavigate = (propertyID) => {
-    console.log(propertyID);
     navigate(`/property-listing/${propertyID}`);
   };
 
@@ -30,7 +28,6 @@ function MainPage() {
 
       try{
         const response = await axios.get("http://localhost:8000/api/listings");
-        console.log("fetching all using api");//TODO: REMOVE
         setAllProperties(response.data);
         setError(null);
       }
@@ -97,12 +94,6 @@ function MainPage() {
       fetchProperties();
   }, [activeCategory,currSearch]);
 
-  // If properties are empty
-  useEffect(() => 
-  {
-      setNoResults(filteredProperties.length === 0);
-  }, [filteredProperties]);
-
   if (initload) {
     return (
   <div className="flex flex-col justify-center items-center min-h-screen bg-gray-700">
@@ -127,7 +118,7 @@ function MainPage() {
         <strong>An Error occured trying to fetch properties</strong>
         </div>}
 
-      {!error && !loading && noResults && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
+      {!error && !loading && filteredProperties.length === 0 && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
         <strong>No Available Properties</strong>
         </div>}
 

@@ -26,7 +26,6 @@ function App() {
             Authorization: `Bearer ${token}`,
           }
         });
-        console.log(response.data);
         setUser(response.data.user);
       }
     } catch (error) {
@@ -37,7 +36,6 @@ function App() {
   return (
       <Routes>
         <Route path="/" element={<Mainpage />} />
-        <Route path="/x" element={ user ? <Navigate to="/"/> : <LoginPage />} />
         <Route path="/property-listing/:id" element={<ListingDetailsPage />} />
         <Route path="/book/:id" element={ user ? <BookingPage /> : <Navigate to="/login" />} />
         <Route path="/login" element={ user ? <Navigate to="/"/> : <LoginPage />} />

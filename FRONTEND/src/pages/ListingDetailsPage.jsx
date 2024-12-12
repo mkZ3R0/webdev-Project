@@ -16,7 +16,7 @@ const [error, setError] = useState(null);
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/listings/3`);
+      const response = await axios.get(`http://localhost:8000/api/listings/${id}`);
       setProperty(response.data);
       setLoading(false);
       setError(null);
@@ -30,7 +30,7 @@ useEffect(() => {
 }, [id]);
 
 const handleBookingClick = () => {
-  navigate(`/book/${property.id}`);
+  navigate(`/book/${property._id}`);
 };
 
 

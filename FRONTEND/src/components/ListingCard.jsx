@@ -4,9 +4,7 @@ const ListingCard = ({ property , detailsCallback}) => {
   //Details Callback
   const handleNavigate = () => 
   {
-    console.log("Callback in listing card was activated");
-    console.log(property.id);
-    detailsCallback(property.id);
+    detailsCallback(property._id);
   }
 
 
