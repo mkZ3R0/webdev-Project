@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {toast} from 'react-hot-toast';
 
 const ListingForm = () => {
   const [formData, setFormData] = useState({
@@ -45,11 +46,10 @@ const ListingForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-        console.log(form);
-      alert('Property added successfully!');
+      toast.success('Property added successfully!');
     } catch (error) {
       console.error(error);
-      alert('Error adding property');
+      toast.error('Failed to add property');
     }
   };
 
