@@ -22,9 +22,16 @@ function AdminPage() {
     const fetchInitListings = async () => {
 
       try{
-        const response = await axios.get("http://localhost:8000/api/admin/listings");
-        setListings(response.data);
-        setError(null);
+        const token = localStorage.getItem("token");
+        if (token) {
+            const response = await axios.get("http://localhost:8000/api/admin/listings", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setListings(response.data);
+            setError(null);
+        }
       }
       catch (error) {
         setError(error);
@@ -34,9 +41,16 @@ function AdminPage() {
     const fetchInitBookings = async () => {
             
         try{
-          const response = await axios.get("http://localhost:8000/api/admin/bookings");
-          setBookings(response.data);
-          setError(null);
+          const token = localStorage.getItem("token");
+          if (token) {
+              const response = await axios.get("http://localhost:8000/api/admin/bookings", {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  }
+              });
+              setBookings(response.data);
+              setError(null);
+          }
         }
         catch (error) {
           setError(error);
@@ -54,9 +68,16 @@ function AdminPage() {
     const deleteListing = async (id) => {
         
         try {
-            const response = await axios.delete(`http://localhost:8000/api/admin/listings/${id}`);
-            setListings(listings.filter(listing => listing._id !== id));
-            toast.success(response.data.message);
+            const token = localStorage.getItem("token");
+            if (token) {
+                const response = await axios.delete(`http://localhost:8000/api/admin/listings/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setListings(listings.filter(listing => listing._id !== id));
+                toast.success(response.data.message);
+            }
         } catch (error) {
             console.log(error);
             setError(error);

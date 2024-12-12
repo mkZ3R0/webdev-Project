@@ -42,8 +42,8 @@ function App() {
         <Route path="/book/:id" element={ user ? <BookingPage /> : <Navigate to="/login" />} />
         <Route path="/login" element={ user ? <Navigate to="/"/> : <LoginPage />} />
         <Route path="/signup" element={ user ? <Navigate to="/"/> : <SignupPage />} />
-        <Route path="/user-profile" element={ user ? (user.username === 'admin' ? <AdminPage /> : <UserProfilePage />) : <Navigate to="/" />} />
-        <Route path="/admin-panel" element={ user ? (user.username === 'admin' ? <AdminPage /> : <Navigate to="/user-profile" />) : <Navigate to="/" />} />
+        <Route path="/user-profile" element={ user ? (user.username === 'admin' ? <AdminPage /> : <UserProfilePage />) : <Navigate to="/login" />} />
+        <Route path="/admin-panel" element={ user ? (user.username === 'admin' ? <AdminPage /> : <Navigate to="/user-profile" />) : <Navigate to="/login" />} />
       </Routes>
   )
 }

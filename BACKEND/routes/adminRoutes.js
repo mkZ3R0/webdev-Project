@@ -2,11 +2,12 @@ import express from "express";
 import Property from "../models/Property.js";
 import Booking from "../models/Booking.js";
 import upload from '../middlewares/uploadImage.js';
+import verifyToken from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 
-router.get("/listings", async (req, res) => {
+router.get("/listings", verifyToken, async (req, res) => {
 
     try 
     {
@@ -20,7 +21,7 @@ router.get("/listings", async (req, res) => {
 
 //post a new listing
 //TODO: TAKE IMAGE FILE AND DOWNLOAD TO PUBLIC/IMAGES
-router.post("/listings", upload.single('img'), async (req, res) => {
+router.post("/listings", upload.single('img'), verifyToken , async (req, res) => {
     try {
         const {
           title,
@@ -90,7 +91,7 @@ router.post("/listings", upload.single('img'), async (req, res) => {
       }
 });
 
-router.delete("/listings/:id", async (req, res) => {
+router.delete("/listings/:id", verifyToken, async (req, res) => {
     
         try 
         {
@@ -104,7 +105,7 @@ router.delete("/listings/:id", async (req, res) => {
         }
 });
 
-router.get("/bookings", async (req, res) => {
+router.get("/bookings", verifyToken, async (req, res) => {
     
         try 
         {
