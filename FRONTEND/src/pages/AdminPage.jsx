@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import ListingItemContainer from '../components/ListingItemContainer';
 import BookingItemContainer from '../components/BookingItemContainer';
+import ListingForm from '../components/ListingForm';
 import axios from 'axios';
 import {toast} from 'react-hot-toast';
 
@@ -10,7 +11,7 @@ function AdminPage() {
 
   const [listings, setListings] = useState([]);
   const [bookings, setBookings] = useState([]);
-  const [isListing, setIsListing] = useState(false);
+  const [isListing, setIsListing] = useState('A');//A=listing, B=Booking, C=Add Listing
   const [loading, setLoading] = useState(true);
   const [initload, setInitLoad] = useState(true);
   const [error, setError] = useState(null);
@@ -79,19 +80,20 @@ function AdminPage() {
 
       <div className="flex justify-center items-center bg-gray-800 mt-8 mb-4 space-x-4">
         <button 
-          className={`px-4 py-2 rounded ${isListing ? 'bg-teal-500' : 'bg-violet-500'}`} 
-          onClick={() => setIsListing(true)}
+          className={`px-4 py-2 rounded ${isListing === "A" ? 'bg-teal-500' : 'bg-violet-500'}`} 
+          onClick={() => setIsListing("A")}
         >
           Listings Management
         </button>
         <button 
-          className={`px-4 py-2 rounded ${!isListing ? 'bg-teal-500' : 'bg-violet-500'}`} 
-          onClick={() => setIsListing(false)}
+          className={`px-4 py-2 rounded ${isListing === "B" ? 'bg-teal-500' : 'bg-violet-500'}`} 
+          onClick={() => setIsListing("B")}
         >
           Bookings Management
         </button>
         <button 
-          className="px-4 py-2 rounded bg-green-500"
+          className={`px-4 py-2 rounded ${isListing === "C" ? 'bg-teal-500' : 'bg-violet-500'}`} 
+          onClick={() => setIsListing("C")}
         >
           Add a Listing
         </button>
@@ -114,13 +116,17 @@ function AdminPage() {
         <strong>No Available Bookings</strong>
         </div>}
 
-      {isListing && <div className="flex-grow">
+      {isListing === "A" && <div className="flex-grow">
         <ListingItemContainer listings={listings} onDelete={deleteListing}/>
       </div> }
 
-      {!isListing && <div className="flex-grow">
+      {isListing === "B" && <div className="flex-grow">
         <BookingItemContainer bookings={bookings}/>
        </div> }
+
+      {isListing === "C" && <div className="flex-grow">
+        <ListingForm />
+      </div> }
       <Footer className="mt-auto" />
     </div>
   )
