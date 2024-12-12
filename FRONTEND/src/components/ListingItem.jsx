@@ -8,8 +8,12 @@ return (
             <h3 className="m-0 mb-2 text-teal-400">{property.title}</h3>
             <p className="m-0 mb-1 text-teal-400">{property.location}</p>
             <p className="m-0 mb-1">
+                <span className="text-violet-400">Listing ID# </span>
+                <span className="text-teal-400">{property._id}</span>
+            </p>
+            <p className="m-0 mb-1">
                 <span className="text-violet-400">Guests: </span>
-                <span className="text-teal-400">${property.guests}</span>
+                <span className="text-teal-400">{property.guests}</span>
             </p>
             <p className="m-0 mb-1">
                 <span className="text-violet-400">Price/night: </span>
