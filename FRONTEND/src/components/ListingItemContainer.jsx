@@ -4,7 +4,7 @@ import ListingItem from './ListingItem';
 const ListingItemContainer = ({listings, onDelete}) => {
 
 return (
-    <div className="flex flex-col bg-gray-800">
+    <div className="w-full h-full p-4 bg-gray-800">
         {listings.map(listing => (
             <ListingItem key={listing._id} property={listing} onDelete={onDelete} />
         ))}
