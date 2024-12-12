@@ -50,8 +50,8 @@ const Navbar = () => {
                         </button>
                         {isDropdownOpen && (
                             <div className="absolute right-0 text-center bg-gray-900 rounded-md shadow-lg py-2 pz-10 border-teal-400 border-2">
-                                <a href="/signup" className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Sign Up</a>
-                                <a href="/login" className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Login</a>
+                                <a onClick={() => handleNavigate('/signup')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Sign Up</a>
+                                <a onClick={() => handleNavigate('/login')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Login</a>
                             </div>
                         )}
                     </li>
@@ -70,8 +70,8 @@ const Navbar = () => {
                         </button>
                         {isDropdownOpen && (
                             <div className="mt-0 w-full bg-gray-900 rounded-md shadow-lg py-2 ">
-                                <a href="/signup" className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Sign Up</a>
-                                <a href="/login" className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Login</a>
+                                <a onClick={() => handleNavigate('/signup')} className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Sign Up</a>
+                                <a onClick={() => handleNavigate('/login')} className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Login</a>
                             </div>
                         )}
                     </div>

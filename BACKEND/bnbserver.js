@@ -1,6 +1,7 @@
 import express from 'express';
 import listingRoutes from "./routes/listingRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import cors from 'cors';
 import mongoose from 'mongoose';
 
@@ -31,9 +32,12 @@ app.use(cors({
 }));
 
 //Listing Routes => /api/listings
+app.use(express.json());
 app.use('/api/listings', listingRoutes);
 //Booking Routes => /api/booking
 app.use('/api/bookings', bookingRoutes);
+//User Routes => /api/auth
+app.use("/api/auth", userRoutes);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
