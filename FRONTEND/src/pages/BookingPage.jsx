@@ -3,11 +3,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useAuthStore } from "../store/useAuthStore";
+import {toast} from 'react-hot-toast';
 
 const BookingPage = () => 
 {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useAuthStore();
 
   //STATES FOR BOOKING FORM
   const [checkInDate, setCheckInDate] = useState("");
@@ -86,13 +89,27 @@ const BookingPage = () =>
   const confirmBooking = async () => {
     try {
       setSentPost(true);
-      const response = await axios.post(`http://localhost:8000/api/bookings/${property.id}`)
-      alert(response.data.message);
-      navigate(`/`);
+      const response = await axios.post(`http://localhost:8000/api/bookings/${id}`,{
+        user_id: user._id,  
+        user_name: userName,
+        user_email: userEmail,
+        user_contact: userContact,
+        check_in: checkInDate,
+        check_out: checkOutDate,
+        total_price: totalPrice,
+      });
+      toast.success(response.data.message);
       setSentPost(false);
+      navigate(`/`);
     }
     catch (error) {
-      alert("An error occurred while trying to book the property: " + error.message);
+      if(error.response) {
+        toast.error(error.response.data.message);
+      }
+      else
+      {
+        toast.error("Network Error");
+      }
       setSentPost(false);
     }
   };
