@@ -2,6 +2,7 @@ import express from 'express';
 import listingRoutes from "./routes/listingRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
@@ -49,6 +50,7 @@ app.use('/api/listings', listingRoutes);
 app.use('/api/bookings', bookingRoutes);
 //User Routes => /api/auth
 app.use("/api/auth", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
