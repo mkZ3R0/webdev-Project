@@ -43,3 +43,7 @@ A air bnb homepage replica made in  React styled with Tailwind CSS
     run the command
     `pnpm start`
 
+## ACCESS ADMINISTRATION
+1. **Login as admin with known username, password**
+
+2. **Open nav bar's my profile and go to profile to access admin panel**
