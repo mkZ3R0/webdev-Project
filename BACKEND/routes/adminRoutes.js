@@ -1,4 +1,6 @@
 import express from "express";
+import Property from "../models/Property.js";
+import Booking from "../models/Booking.js";
 
 const router = express.Router();
 
@@ -10,6 +12,7 @@ router.get("/listings", async (req, res) => {
         const allProperties = await Property.find();
         return res.status(200).json(allProperties);
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
@@ -30,6 +33,7 @@ router.post("/listings", async (req, res) => {
         return res.status(201).json({message : 'Property added successfully'});
 
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
@@ -43,6 +47,7 @@ router.delete("/listings/:id", async (req, res) => {
             return res.status(200).json({message : 'Property deleted successfully'});
     
         } catch (error) {
+            console.log(error);
             return res.status(500).json({ message: 'Internal Server Error' });
         }
 });
@@ -54,6 +59,7 @@ router.get("/bookings", async (req, res) => {
             const allBookings = await Booking.find();
             return res.status(200).json(allBookings);
         } catch (error) {
+            console.log(error);
             return res.status(500).json({ message: 'Internal Server Error' });
         }
 });

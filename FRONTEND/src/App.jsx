@@ -3,6 +3,7 @@ import Mainpage from './pages/MainPage'
 import ListingDetailsPage from './pages/ListingDetailsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import AdminPage from './pages/AdminPage'
 import axios from 'axios'
 import {useEffect} from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -40,6 +41,7 @@ function App() {
         <Route path="/book/:id" element={ user ? <BookingPage /> : <Navigate to="/login" />} />
         <Route path="/login" element={ user ? <Navigate to="/"/> : <LoginPage />} />
         <Route path="/signup" element={ user ? <Navigate to="/"/> : <SignupPage />} />
+        <Route path="/admin-panel" element={ user ? <AdminPage /> : <Navigate to="/login" />} />
       </Routes>
   )
 }

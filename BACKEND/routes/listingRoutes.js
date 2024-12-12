@@ -1,6 +1,6 @@
 import express from "express";
 import Property from '../models/Property.js';
-// import properties from '../PROPERTIES.json' assert { type: 'json' };;
+import properties from '../PROPERTIES.json' assert { type: 'json' };//for seeding database
 
 const router = express.Router();
 
@@ -63,16 +63,16 @@ router.get('/:id', async (req, res) => {
 
 //endpoint to post all properties from static file to the database
 //was used to initially seed the database
-// router.post('/seed', async (req, res) => {
-//     try 
-//     {
-//         await Property.insertMany(properties.listings);
-//         return res.status(200).json({ message: 'Properties seeded successfully' });
-//     } catch (error) 
-//     {
-//         console.log(error);
-//         return res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
+router.post('/seed', async (req, res) => {
+    try 
+    {
+        await Property.insertMany(properties.listings);
+        return res.status(200).json({ message: 'Properties seeded successfully' });
+    } catch (error) 
+    {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 export default router;

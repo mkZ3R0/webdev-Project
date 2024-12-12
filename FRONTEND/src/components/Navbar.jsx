@@ -64,7 +64,7 @@ const Navbar = () => {
                         )}
                         {isDropdownOpen && user && (
                             <div className="absolute right-0 text-center bg-gray-900 rounded-md shadow-lg py-2 pz-10 border-teal-400 border-2">
-                                <a onClick={() => handleNavigate('/')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Profile</a>
+                                <a onClick={() => handleNavigate('/admin-panel')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Profile</a>
                                 <a onClick={() => handleLogOut('/')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Log Out</a>
                             </div>
                         )}
