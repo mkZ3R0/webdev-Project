@@ -105,14 +105,14 @@ function AdminPage() {
     </div>}
 
       {error && <div className="text-center text-red-400 text-2xl sm:text-5xl mt-8">
-        <strong>An Error occured load listings and bookings</strong>
+        <strong>An Error occured loading listings and bookings</strong>
         </div>}
 
-      {!error && !loading && isListing && listings.length === 0 && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
+      {!error && !loading && isListing === "A" && listings.length === 0 && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
         <strong>No Available listings</strong>
         </div>}
 
-    {!error && !loading && !isListing && bookings.length === 0 && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
+    {!error && !loading && isListing === "B" && bookings.length === 0 && <div className="text-center text-teal-400 text-2xl sm:text-5xl mt-8">
         <strong>No Available Bookings</strong>
         </div>}
 

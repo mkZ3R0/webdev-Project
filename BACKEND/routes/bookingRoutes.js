@@ -31,4 +31,16 @@ router.post('/:id', async (req, res) => {
 
 });
 
+router.get('/:id', async (req, res) => {
+    try 
+    {
+        const {id} = req.params; 
+        const allUserBookings = await Booking.find({user_id: id});
+        return res.status(200).json(allUserBookings);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 export default router;

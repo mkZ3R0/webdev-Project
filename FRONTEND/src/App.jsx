@@ -4,6 +4,7 @@ import ListingDetailsPage from './pages/ListingDetailsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import AdminPage from './pages/AdminPage'
+import UserProfilePage from './pages/UserProfilePage'
 import axios from 'axios'
 import {useEffect} from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -42,7 +43,8 @@ function App() {
         <Route path="/book/:id" element={ user ? <BookingPage /> : <Navigate to="/login" />} />
         <Route path="/login" element={ user ? <Navigate to="/"/> : <LoginPage />} />
         <Route path="/signup" element={ user ? <Navigate to="/"/> : <SignupPage />} />
-        <Route path="/admin-panel" element={ user && user.username === 'admin' ? <AdminPage /> : <Navigate to="/login" />} />
+        <Route path="/user-profile" element={ user ? (user.username === 'admin' ? <AdminPage /> : <UserProfilePage />) : <Navigate to="/" />} />
+        <Route path="/admin-panel" element={ user ? (user.username === 'admin' ? <AdminPage /> : <Navigate to="/user-profile" />) : <Navigate to="/" />} />
       </Routes>
   )
 }
