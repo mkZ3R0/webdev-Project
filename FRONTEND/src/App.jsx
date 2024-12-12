@@ -28,6 +28,7 @@ function App() {
           }
         });
         setUser(response.data.user);
+        console.log(response.data.user);
       }
     } catch (error) {
       console.log(error);
@@ -41,7 +42,7 @@ function App() {
         <Route path="/book/:id" element={ user ? <BookingPage /> : <Navigate to="/login" />} />
         <Route path="/login" element={ user ? <Navigate to="/"/> : <LoginPage />} />
         <Route path="/signup" element={ user ? <Navigate to="/"/> : <SignupPage />} />
-        <Route path="/admin-panel" element={ user ? <AdminPage /> : <Navigate to="/login" />} />
+        <Route path="/admin-panel" element={ user && user.username === 'admin' ? <AdminPage /> : <Navigate to="/login" />} />
       </Routes>
   )
 }
