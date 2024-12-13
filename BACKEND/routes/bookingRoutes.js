@@ -28,7 +28,7 @@ router.post('/:id', verifyToken, async (req, res) => {
         }
         else
         {
-            const booking = new Booking({ property_id: id, propety_host_id: host_id, user_id, user_name, user_email, user_contact, check_in, check_out, total_price });
+            const booking = new Booking({ property_id: id, property_host_id: host_id, user_id, user_name, user_email, user_contact, check_in, check_out, total_price });
             await booking.save();
             return res.status(201).json({booking, message: 'Booking confirmed'});
         }
