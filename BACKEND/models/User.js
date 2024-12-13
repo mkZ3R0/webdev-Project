@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        enum: ['admin', 'guest', 'host'],
+        required: true,
+    }
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useAuthStore } from '../store/useAuthStore';
 
 const ListingForm = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ const ListingForm = () => {
         description: '',
         amenities: [],
     });
+
+    const {user} = useAuthStore();
 
     const [img, setImg] = useState(null); // Image file
 
@@ -45,13 +48,25 @@ const ListingForm = () => {
             if (!token) {
                 toast.error('Unauthorized');
             }
-            const response = await axios.post('http://localhost:8000/api/admin/listings', form, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            if(user.role === 'host') {
+                const response = await axios.post('http://localhost:8000/api/host/listings', form, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
             toast.success('Property added successfully!');
+            } 
+            else 
+            {//is admin
+                const response = await axios.post('http://localhost:8000/api/admin/listings', form, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                toast.success('Property added successfully!');
+            }
         } catch (error) {
             console.error(error);
             toast.error('Failed to add property');
@@ -133,7 +148,7 @@ const ListingForm = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-teal-400">Price per Night</label>
+                        <label className="block text-sm font-medium text-teal-400">Price per Night $</label>
                         <input
                             type="number"
                             name="price_per_night"

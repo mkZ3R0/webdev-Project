@@ -1,17 +1,23 @@
 import express from "express";
+import User from "../models/User.js";
 import Property from "../models/Property.js";
 import Booking from "../models/Booking.js";
 import upload from '../middlewares/uploadImage.js';
-import verifyTokenAndAdmin from "../middlewares/authAdminMiddleware.js";
+import verifyTokenAndHost from "../middlewares/authHostMiddleware.js";
 
 const router = express.Router();
 
 
-router.get("/listings", verifyTokenAndAdmin, async (req, res) => {
+router.get("/listings", verifyTokenAndHost, async (req, res) => {
 
     try 
     {
-        const allProperties = await Property.find();
+        const userId = req.user.id;
+
+        const user = await User.findById(userId);
+
+        const allProperties = await Property.find({host_id: user._id});
+
         return res.status(200).json(allProperties);
     } catch (error) {
         console.log(error);
@@ -20,8 +26,13 @@ router.get("/listings", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //post a new listing
-router.post("/listings", upload.single('img'), verifyTokenAndAdmin, async (req, res) => {
+router.post("/listings", upload.single('img'), verifyTokenAndHost, async (req, res) => {
     try {
+
+        const userId = req.user.id;
+
+        const user = await User.findById(userId);
+
         const {
           title,
           types,
@@ -66,6 +77,7 @@ router.post("/listings", upload.single('img'), verifyTokenAndAdmin, async (req, 
     
         // Create a new property
         const newProperty = new Property({
+          host_id: user._id,
           img: imgPath,
           title,
           types: parsedTypes,
@@ -90,7 +102,7 @@ router.post("/listings", upload.single('img'), verifyTokenAndAdmin, async (req, 
       }
 });
 
-router.delete("/listings/:id", verifyTokenAndAdmin, async (req, res) => {
+router.delete("/listings/:id", verifyTokenAndHost, async (req, res) => {
     
         try 
         {
@@ -104,11 +116,15 @@ router.delete("/listings/:id", verifyTokenAndAdmin, async (req, res) => {
         }
 });
 
-router.get("/bookings", verifyTokenAndAdmin, async (req, res) => {
+router.get("/bookings", verifyTokenAndHost, async (req, res) => {
     
         try 
         {
-            const allBookings = await Booking.find();
+            const userId = req.user.id;
+
+            const user = await User.findById(userId);
+
+            const allBookings = await Booking.find({property_host_id: user._id});
             return res.status(200).json(allBookings);
         } catch (error) {
             console.log(error);

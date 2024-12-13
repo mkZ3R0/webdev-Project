@@ -30,7 +30,7 @@ router.get('/me', verifyToken, async (req, res) => {
 router.post("/signup", async (req, res) => {
     try 
     {
-        const {username, password} = req.body;
+        const {username, password, role} = req.body;
 
         const existingUser = await User.findOne({username});
         if (existingUser) {
@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const user = new User({username, password: hashedPassword});
+        const user = new User({username, password: hashedPassword, role});
 
         await user.save();
 
@@ -54,7 +54,7 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     try 
     {
-        const {username, password} = req.body;
+        const {username, password, role} = req.body;
 
         const findUser = await User.findOne({username});
 

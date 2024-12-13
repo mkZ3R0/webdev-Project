@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const propertySchema = new mongoose.Schema(
-{
+  {
+    host_id: { type: String, required: false },
     img: { type: String, required: true },
     title: { type: String, required: true },
     types: { type: [String], required: true },
@@ -15,6 +16,6 @@ const propertySchema = new mongoose.Schema(
     description: { type: String, required: true },
     amenities: { type: [String], required: true }
   });
-  
-  const Property = mongoose.model("Property", propertySchema);
-  export default Property;
+
+const Property = mongoose.model("Property", propertySchema);
+export default Property;

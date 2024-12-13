@@ -11,6 +11,18 @@ const Navbar = () => {
       navigate(path);
     };
 
+    const handleProfileNavigate = () => {
+        if(user.role === "admin") {
+            navigate('/admin-panel');
+        }
+        else if(user.role === "host") {
+            navigate('/host-panel');
+        }
+        else if(user.role === "guest") {
+            navigate('/user-profile');
+        }
+    };
+
     const handleLogOut = (path) => {
         setUser(null);
         localStorage.removeItem('token');
@@ -64,7 +76,7 @@ const Navbar = () => {
                         )}
                         {isDropdownOpen && user && (
                             <div className="absolute right-0 text-center bg-gray-900 rounded-md shadow-lg py-2 pz-10 border-teal-400 border-2">
-                                <a onClick={() => handleNavigate('/admin-panel')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Profile</a>
+                                <a onClick={() => handleProfileNavigate()} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Profile</a>
                                 <a onClick={() => handleLogOut('/')} className="block px-4 py-2 text-white text-2xl hover:text-teal-400 duration-300 rounded">Log Out</a>
                             </div>
                         )}
@@ -91,7 +103,7 @@ const Navbar = () => {
 
                         {isDropdownOpen && user && (
                             <div className="mt-0 w-full bg-gray-900 rounded-md shadow-lg py-2 ">
-                                <a onClick={() => handleNavigate('/')} className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Profile</a>
+                                <a onClick={() => handleProfileNavigate()} className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Profile</a>
                                 <a onClick={() => handleLogOut('/')} className="block py-2 text-white hover:text-teal-400 duration-300 rounded">Log Out</a>
                             </div>
                         )}

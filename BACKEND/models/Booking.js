@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const bookingSchema = new mongoose.Schema(
 {
     property_id: { type: String, required: true },
+    property_host_id: { type: String, required: false },
     user_id: { type: String, required: true },
     user_name: { type: String, required: true },
     user_email: { type: String, required: true },

@@ -89,18 +89,32 @@ const BookingPage = () =>
   const confirmBooking = async () => {
     try {
       setSentPost(true);
-      const response = await axios.post(`http://localhost:8000/api/bookings/${id}`,{
-        user_id: user._id,  
-        user_name: userName,
-        user_email: userEmail,
-        user_contact: userContact,
-        check_in: checkInDate,
-        check_out: checkOutDate,
-        total_price: totalPrice,
-      });
-      toast.success(response.data.message);
-      setSentPost(false);
-      navigate(`/`);
+      const token = localStorage.getItem("token");
+      if (token) 
+      {
+          const response = await axios.post(`http://localhost:8000/api/bookings/${id}`,
+          {
+            user_id: user._id,  
+            user_name: userName,
+            user_email: userEmail,
+            user_contact: userContact,
+            check_in: checkInDate,
+            check_out: checkOutDate,
+            total_price: totalPrice,
+            host_id: property.host_id ? property.host_id : ""
+          },
+          {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }});
+          toast.success(response.data.message);
+          setSentPost(false);
+          navigate(`/`);
+        }
+      else
+      {
+        toast.error("You need to be logged in to book a property");
+      }
     }
     catch (error) {
       if(error.response) {

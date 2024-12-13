@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const SignupPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -16,7 +17,8 @@ const SignupPage = () => {
             e.preventDefault();
             const response = await axios.post("http://localhost:8000/api/auth/signup",{
                 username,
-                password
+                password,
+                role
             });
             toast.success(response.data.message);
             navigate("/login");
@@ -69,6 +71,23 @@ const SignupPage = () => {
                             className="w-full px-3 py-2 mt-1 border rounded-md text-violet-400 shadow-sm bg-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-teal-400"
                             required
                         />
+                    </div>
+                    <div>
+                        <label htmlFor="role" className="block text-sm font-medium text-teal-400">
+                            Role
+                        </label>
+                        <select
+                            id="role"
+                            name="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            className="w-full px-3 py-2 mt-1 border rounded-md text-violet-400 shadow-sm bg-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            required
+                        >
+                            <option value="" disabled>Select role</option>
+                            <option value="host">Host</option>
+                            <option value="guest">Guest</option>
+                        </select>
                     </div>
                     <div>
                         <button
